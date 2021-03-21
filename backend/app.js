@@ -34,13 +34,14 @@ mongoose
 // Helmet middlware for safe headers
 app.use(helmet());
 
+ // middleware express-rate-limit pour limiter le nombre de requêtes effectuées
 const limiter = rateLimit({
   windowMs: 30 * 60 * 1000,
   max: 100,
 });
-app.use(limiter); // express-rate-limit middleware to limit the amount of request done
+app.use(limiter);
 
-// Setting CORS headers
+//Définition des (headers) en-têtes CORS
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -64,13 +65,15 @@ app.use(
 );
 
 // Security
-app.use(mongoSanitize()); // Mongo sanitize to sanitizes inputs against query selector injection attacks
-app.use(morgan("combined")); // Morgan middleware to create logs
-app.use(hpp()); // HPP middleware to protect against HTTP parameter pollution attacks
+// Mongo sanitize pour nettoyer les entrées contre les attaques par injection de sélecteur de requête
+app.use(mongoSanitize()); 
+// middleware Morgan pour créer des logs
+app.use(morgan("combined"));
+//middleware  HTTP pour se protéger contre les attaques de pollution des paramètres HTTP 
+app.use(hpp());
 
 // Setting routes
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/sauces", sauceRoutes);
 app.use("/api/auth", userRoutes);
 
 module.exports = app;

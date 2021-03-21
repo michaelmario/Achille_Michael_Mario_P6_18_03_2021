@@ -25,7 +25,16 @@ schema
   .has()
   .digits(1);
 
-exports.signup = (req, res, next) => { 
+exports.signup = (req, res, next) => {
+  if (!mailValidator.validate(req.body.email)) {
+    throw {
+      error: "L'adresse mail n'est pas valide !", // Making sure the amil is an email
+    };
+  } else if (!schema.validate(req.body.password)) {
+    throw {
+      error: "Le mot pass n'est pas valide !", // Making sure the password respect the schema
+    };
+  } else { 
   // Hashing et salage du mot de passe 
     bcrypt
       .hash(req.body.password, 10) 
@@ -42,5 +51,6 @@ exports.signup = (req, res, next) => {
       })
       .catch((error) => res.status(501).json({ error }));
   }
+}
 
 

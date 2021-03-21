@@ -7,7 +7,7 @@ const bouncer = require("express-bouncer")(30000, 60000, 3);
 
 // Setting controllers
 router.post("/signup",  userCtrl.signup);
-router.post("/login", bouncer.block, userCtrl.login);
+
 
 // Exporting Router
 module.exports = router;
