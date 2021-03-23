@@ -1,6 +1,5 @@
 // Requires
 const User = require("../models/UserSchema");
-const dotenv = require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mailValidator = require("email-validator");
