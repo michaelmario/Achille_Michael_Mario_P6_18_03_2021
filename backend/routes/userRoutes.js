@@ -8,7 +8,7 @@ const { userValidationRules, validate } = require("../middleware/validator");
 
 // Setting controllers
 router.post("/signup", userValidationRules(), validate, userCtrl.signup);
-
+router.post("/login", bouncer.block, userCtrl.login);
 
 // Exporting Router
 module.exports = router;
