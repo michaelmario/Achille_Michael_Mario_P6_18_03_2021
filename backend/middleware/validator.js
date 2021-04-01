@@ -14,7 +14,7 @@ const validate = (req, res, next) => {
   const extractedErrors = [];
   errors.array().map((err) =>
     extractedErrors.push({
-      [err.param]: "Le mot de passe doit faire au moins 6 caractères",
+      message : "Le mot de passe doit faire au moins 6 caractères , au moins une minuscule et majuscule 8 caracter min et 100 max 2 chiffre min pas d'espace",
     })
   );
   return res.status(422).json({
@@ -26,3 +26,4 @@ module.exports = {
   userValidationRules,
   validate,
 };
+
