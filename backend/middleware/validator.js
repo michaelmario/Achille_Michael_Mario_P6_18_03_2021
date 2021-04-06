@@ -1,11 +1,11 @@
 const { body, validationResult } = require("express-validator");
 
-// Checkinh email format and password length
+// Vérification du format de l'e-mail et de la longueur du mot de passe
 const userValidationRules = () => {
   return [body("email").isEmail(), body("password").isLength({ min: 6 })];
 };
 
-// Error handeling
+// La gestion des erreurs
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {

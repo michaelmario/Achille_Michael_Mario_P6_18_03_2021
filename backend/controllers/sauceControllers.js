@@ -10,6 +10,7 @@ const regex = /^[a-zA-Z0-9 _.,!()&]+$/;
 exports.addSauce = (req, res, next) => {
   const newSauce = JSON.parse(req.body.sauce);
   delete newSauce._id;
+  //Vérification du format des valeurs d'entrée du formulaire avant de les traiter
   if (
     !regex.test(newSauce.name) ||
     !regex.test(newSauce.manufacturer) ||
@@ -19,8 +20,9 @@ exports.addSauce = (req, res, next) => {
   ) {
     return res
       .status(500)
-      .json({ error: "Des champs contiennent des caractères invalides" }); // Checking from form input values format before dealing with them
-  }
+      .json({ error: "Des champs contiennent des caractères invalides" }); 
+      }
+     // objet sauce
   const sauce = new Sauce({
     ...newSauce,
     likes: 0,
@@ -30,17 +32,18 @@ exports.addSauce = (req, res, next) => {
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
-  }); // Creating new sauce accordig to schema and then, saveing it in DB
+  });
+   // Créer une nouvelle sauce selon le schéma, puis la sauvegarder dans DB
   sauce
     .save()
     .then(() => res.status(201).json({ message: "Sauce enregistrée !" }))
     .catch((error) => res.status(400).json({ error }));
 };
 
-// LIKE OR DISLIKE Sauce
-exports.giveOpinion = (req, res, next) => {
-  // User liked the Sauce
-  // Pushing user id in usersLikes array and incrementing likes by 1
+// LIKE OR DISLIKE Sauce (AIMEZ OU N'AIMEZ PAS la sauce)
+exports.likeOpinion = (req, res, next) => {
+  // L'utilisateur a aimé la sauce
+  // Pousser l'ID utilisateur dans le tableau des likes des utilisateurs et incrémenter les likes de 1
   if (req.body.like === 1) {
     Sauce.updateOne(
       { _id: req.params.id },
@@ -53,8 +56,8 @@ exports.giveOpinion = (req, res, next) => {
       .catch((error) => res.status(400).json({ error }));
   }
 
-  // If user disliked the Sauce
-  // Pushing user id in usersDislikes array and dicrementing likes by 1
+  //Si l'utilisateur n'a pas aimé la sauce
+  // Pousser l'ID utilisateur dans le tableau usersDejikes et décrémenter les likes de 1
   else if (req.body.like === -1) {
     Sauce.updateOne(
       { _id: req.params.id },
@@ -69,10 +72,10 @@ exports.giveOpinion = (req, res, next) => {
       .catch((error) => res.status(400).json({ error }));
   }
 
-  // If user erased its opinion
-  // Depending on if the urser likes or disliked the sauce beafore canceling its opinion :
-  // Finding and erasing user id in usersLikes or userDislikes array
-  // Decremanting likes or dislikes by one
+ // Si l'utilisateur a effacé son opinion
+   // Selon que l'urseur aime ou n'a pas aimé la sauce avant d'annuler son avis:
+   // Recherche et effacement de l'ID utilisateur dans le tableau usersLikes ou userDislikes
+   // Décrémant les goûts ou les aversions par un
   else {
     Sauce.findOne({ _id: req.params.id })
       .then((sauce) => {
@@ -105,9 +108,9 @@ exports.giveOpinion = (req, res, next) => {
 
 // UPADTE Sauce
 exports.modifySauce = (req, res, next) => {
-  // Finding out if the image has been modifyed
-  // If YES, inject req.body.sauce + new image in DB
-  // If NO, inject every value from req.body in DB
+// Savoir si l'image a été modifiée
+// Si VOUS, injectez req.body.sauce + new image dans DB 
+// Si NON, injectez toutes les valeurs de req.body dans DB
 
   const sauceObject = req.file
     ? {
@@ -134,8 +137,9 @@ exports.modifySauce = (req, res, next) => {
   ) {
     return res
       .status(500)
-      .json({ error: "Des champs contiennent des caractères invalides" }); // Checking from form input values format before dealing with them
-  }
+      .json({ error: "Des champs contiennent des caractères invalides" });
+      // Vérification du format des valeurs d'entrée du formulaire avant de les traiter
+       }
 
   Sauce.updateOne(
     { _id: req.params.id },
@@ -152,9 +156,11 @@ exports.modifySauce = (req, res, next) => {
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
-      const filename = sauce.imageUrl.split("/images/")[1]; // Finding the image's name
+      const filename = sauce.imageUrl.split("/images/")[1]; 
+      // Recherche du nom de l'image
       fs.unlink(`images/${filename}`, () => {
-        Sauce.deleteOne({ _id: req.params.id }) // Deleting the image in DB after deleting it from disk
+        Sauce.deleteOne({ _id: req.params.id })
+        // Suppression de l'image dans la base de données après l'avoir supprimée du disque 
           .then(() => res.status(200).json({ message: "Objet supprimé !" }))
           .catch((error) => res.status(400).json({ error }));
       });
