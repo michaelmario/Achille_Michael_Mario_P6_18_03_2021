@@ -50,7 +50,7 @@ SECRET_SESSION = xxx
 ## Des failles d'injection
 
 **Le premier du Top Ten de "OWASP"
-1 lorsqu'un attaquant peut envoyer des données hostiles à un interprète
+* 1 lorsqu'un attaquant peut envoyer des données hostiles à un interprète
 
 **Empêcher l'injection nécessite de séparer les données des commandes et des requêtes
 
@@ -67,8 +67,8 @@ et empêche l'injection de SQL
 
 
 ## Authentification cassée
-* Le deuxième du Top Ten de "OWASP"
-1 Les attaquants doivent accéder à seulement quelques comptes ou à un seul compte administrateur pour compromettre le système
+**Le deuxième du Top Ten de "OWASP"
+* 1 Les attaquants doivent accéder à seulement quelques comptes ou à un seul compte administrateur pour compromettre le système
 
 * "password-validator" Valide le mot de passe selon des spécifications flexibles et intuitives  ajouter de complexité et de rotation des mots de pass 
 
@@ -79,8 +79,8 @@ et empêche l'injection de SQL
 
 ## Exposition des données sensibles
 * La troisième du Top Ten de "OWASP"
-1 Les attaquants volent des clés, exécutent des attaques de type "man-in-the-middle" 
-2 volent des données en texte clair du serveur, en transit, ou du client de l'utilisateur, par ex. le navigateur.
+* 1 Les attaquants volent des clés, exécutent des attaques de type "man-in-the-middle" 
+* 2 volent des données en texte clair du serveur, en transit, ou du client de l'utilisateur, par ex. le navigateur.
 
 * “noCache” Désactivez la mise en cache pour les réponses contenant des données sensibles.
 
@@ -90,8 +90,8 @@ et empêche l'injection de SQL
 
 
 ## Contrôle d'accès cassé
-La  Quatrième du Top Ten de "OWASP"
-les attaquants agissant en tant qu'utilisateurs ou administrateurs, ou utilisateurs utilisant des fonctions privilégiées, ou créant, accédant, mettant à jour ou supprimant chaque enregistrement.
+**La  Quatrième du Top Ten de "OWASP"
+* les attaquants agissant en tant qu'utilisateurs ou administrateurs, ou utilisateurs utilisant des fonctions privilégiées, ou créant, accédant, mettant à jour ou supprimant chaque enregistrement.
 
 * “Morgan”créer des logs  au format combiné Apache dans STDOUT
 
