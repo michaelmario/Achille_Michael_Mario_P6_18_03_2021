@@ -42,9 +42,9 @@ SECRET_SESSION = xxx
 
 * Sécurité **OWASP** et **RGPD**
 
-## L'objectif de ce projet est d'écrire un back-end sécurisé et de suivre la recommandation de "owasp"
-## afin d’être en conformité avec «owasp» des middlewares Sécuritaire ont été installés pour protéger l’application
-## vous avez la liste ci-dessous, la menace et comment le middleware protège l'application
+** L'objectif de ce projet est d'écrire un back-end sécurisé et de suivre la recommandation de "owasp"
+** afin d’être en conformité avec «owasp» des middlewares Sécuritaire ont été installés pour protéger l’application
+** vous avez la liste ci-dessous, la menace et comment les middleware protège l'application
 
 
 ## Des failles d'injection
